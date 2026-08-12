@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Solventum HTML Slides &mdash; skill overview</title>
+<style>
+  /* ══════════════════════════════════════════════════════════════
+     SOLVENTUM HTML SLIDES — DECK SHELL
+     Light-only, brand-true, self-contained. No webfonts, no CDN.
+     Token reference + contrast rules: assets/brand/BRAND.md
+     Component snippets:               references/components.md
+     ══════════════════════════════════════════════════════════════ */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Chrome */
+    --primary:    #143829;   /* deep green */
+    --primary-2:  #1c4d35;
+    --header-grad: linear-gradient(135deg, #143829 0%, #1c4d35 100%);
+    --title-grad:  linear-gradient(135deg, #06301c 0%, #0b5c2f 55%, #0a7d38 100%);
+
+    /* Greens — see BRAND.md contrast rule:
+       --brand is accent/large-fill only; --brand-deep is the legible-on-white green. */
+    --brand:      #05dd4d;
+    --brand-deep: #0a7d38;
+
+    /* Text */
+    --ink:   #10201b;
+    --slate: #3a4a45;
+    --muted: #6b7a75;
+
+    /* Surfaces */
+    --bg:     #ffffff;
+    --canvas: #f2f5f2;
+    --panel:  #f4f8f6;
+    --border: #e2e9e5;
+
+    /* Status */
+    --green:  #16a34a;
+    --amber:  #d97706;
+    --red:    #dc2626;
+    --indigo: #4f46e5;
+
+    /* Inverse panel */
+    --inverse-bg:  #06301c;
+    --inverse-ink: #eafff1;
+
+    /* Solventum lockup, ink wordmark — used by .slide-footer::before.
+       URL-encoded (not base64) so the path data stays readable and auditable. */
+    --logo-dark: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1106.5 276.9' xmlns:v='https://vecta.io/nano'%3E%3Cpath d='M89.5 51.3c0-19.3-13.9-31.6-33.6-31.6S21.2 33.9 21.2 54.8s15 35.5 40.1 35.5h42.4c59.8 0 98.7 40.5 98.7 93.3 0 53.2-40.1 93.3-94.9 93.3-55.9 0-94.9-38.6-94.9-91.8 0-19.3 6.6-39.7 16.6-54.8H52c-11.6 15-17.7 33.9-17.7 53.2 0 42 30.5 73.3 73.3 73.3s73.3-31.2 73.3-73.3-30.5-73.3-77.1-73.3h-42C19.7 110.3 0 85.2 0 54.8 0 24.7 25.1 0 55.9 0c33.9 0 54.8 22.8 54.8 49.4 0 3.2-.4 7.5-1.4 10.4h-21c.7-2.3 1.2-6.2 1.2-8.5z' fill='%2305dd4d'/%3E%3Cpath d='M606.3 144c-1 0-1.6.8-1.6 1.8 1.2 18.6 14.4 32.8 32.6 32.8 14.8 0 23.8-6.2 28.4-16h14.8c-5.6 19.2-22.4 29.4-43.2 29.4-30 0-47.4-21.6-47.4-52.8 0-28.8 20-51.2 47.2-51.2 26.2 0 44.6 18.6 44.6 46 0 3 0 6.2-.4 10h-75zm229.4 31.6h12.4V189h-12.2c-23.4 0-31.2-10.2-31.2-29.4V106c0-1.4-.8-2-2.2-2h-14.6V90.6h14.6c1.4 0 2.2-.6 2.2-2V62h14.8v26.6c0 1.4.6 2 2 2h26.6V104h-26.6c-1.4 0-2 .6-2 2v55.2c0 11.8 2.4 14.4 16.2 14.4zm237.6-87.8c19.8 0 33.2 13.4 33.2 35.6V189h-15v-61.2c0-16.4-7.2-26.2-22.8-26.2-16 0-26 11.6-26 28.4v59h-14.8v-61.2c0-16.4-7.4-26.2-23-26.2-16 0-26 12.4-26 28.4v59h-14.8V90.6h14.2v13.6c0 1.6 1.6 1.8 2.4.6 8-13 17.2-17 29-17 12.4 0 23 6 29.4 18.8.6 1 2.2 1.2 2.8 0 7.2-13 17.8-18.8 31.4-18.8zM895.9 192c-20.2 0-33.8-14.2-33.8-36.4v-65h15v60.8c0 17.4 8.4 27.2 24.2 27.2 17.4 0 28.6-13.2 28.6-29.2V90.6h14.8V189h-14v-15.8c0-1.8-1.8-2.2-2.6-.8-8 14.8-18.6 19.6-32.2 19.6zM746.3 87.8c20.4 0 34 14 34 36.4V189h-15v-60.8c0-17.4-8.4-27.2-24.2-27.2-17.4 0-28.6 13.2-28.6 29.2V189h-15V90.6h14.2v16c0 1.6 1.8 1.8 2.4.6 8.2-14.8 18.8-19.4 32.2-19.4zm-141.2 42.4c0 1.4 1 1.8 2 1.8h57.2c1.4 0 2.2-.6 2.2-2.2-.4-16.8-12.8-28.6-29.4-28.6-16.8 0-29.8 12-32 29zm-62.8 40.4l30-80h15.2L549.3 189h-16.6l-38.2-98.4h15.6l30 80c.2.6.6.8 1 .8.6 0 1-.2 1.2-.8zM467.9 49v140h14.8V49h-14.8zm-64.4 143c-28.2 0-48-22-48.8-52.2s21.2-52 48.8-52c28.4 0 49 21.8 49 52s-21.2 52.2-49 52.2zm0-90.8c-19.8 0-34 15.4-34 38.6s14.2 38.6 34 38.6c20 0 34-15.4 34-38.6s-14-38.6-34-38.6zm-102.2-.6c-15.2 0-23.4 6.4-23.4 15.2 0 8 6.6 11.6 18 13.8l18.6 3.6c21 4 29.4 14.8 29.4 29.4 0 18-15 29.4-39.8 29.4-24 0-41.8-10-42.6-33.2h14.6c2 14.8 13.2 20.4 28.6 20.4 14.2 0 23.8-5.2 23.8-15.6 0-9.2-6.2-14.8-19-17l-18.6-3.2c-19-3.2-27.6-12.8-27.6-26.4 0-17.2 13.6-29.2 38-29.2 21 0 38 9.8 39.2 30.2h-14.4c-1.6-10-10.2-17.4-24.8-17.4z' fill='%2310201b'/%3E%3C/svg%3E");
+  }
+
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #0a0f0d;            /* dark stage so the white slide reads as a card */
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center; min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── DECK + SLIDE ────────────────────────────────────────────── */
+  .deck { width: min(1120px, 96vw); height: min(690px, 94vh); position: relative; }
+
+  .slide {
+    position: absolute; inset: 0; background: var(--bg); border-radius: 16px;
+    box-shadow: 0 24px 70px rgba(0,0,0,.45); overflow: hidden;
+    display: none; flex-direction: column; padding: 46px 52px 60px;
+  }
+  .slide.active { display: flex; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* SLIDE BODY — the white-space engine.
+     margin:auto centres the block vertically when it fits (equal breathing room
+     top and bottom); when the content is taller than the slide the autos collapse
+     to 0 so it top-aligns and scrolls INSIDE the body — no clipping, no dead zone. */
+  .slide-body {
+    display: flex; flex-direction: column;
+    gap: 18px; width: 100%; max-width: 1120px;
+    margin: auto; max-height: 100%; overflow-y: auto;
+  }
+  /* .slide-body is a height-constrained flex column, so by default its children
+     shrink BELOW their own content size — an architecture diagram or a table
+     gets squashed to a sliver silently, with no error and no scrollbar to
+     reveal it. One blanket rule covers every component and every future
+     one-off, so no new block can reintroduce the bug by omission.
+     Safe on the cross axis: in a column container flex-shrink governs vertical
+     sizing only, so this adds no horizontal-overflow risk. */
+  .slide-body > * { flex-shrink: 0; }
+  /* For genuinely packed slides only: tighten rhythm and shrink table type. */
+  .slide.dense { padding: 34px 52px 54px; }
+  .slide.dense .slide-body { gap: 11px; }
+  .slide.dense .dtable { font-size: 12px; }
+  .slide.dense .dtable th, .slide.dense .dtable td { padding: 8px 10px; }
+  .slide.dense .card { padding: 13px 14px 15px; }
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────────── */
+  .eyebrow {
+    color: var(--brand-deep); font-weight: 800; font-size: 12px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  h1 { font-size: 46px; line-height: 1.1; letter-spacing: -.02em; color: var(--ink); font-weight: 800; }
+  h2 { font-size: 27px; line-height: 1.15; letter-spacing: -.01em; color: var(--ink); font-weight: 800; }
+  h3 { font-size: 15px; color: var(--ink); font-weight: 700; }
+  p, li { font-size: 15px; line-height: 1.55; color: var(--slate); }
+  .sub  { color: var(--muted); font-size: 15px; }
+  .lede { color: var(--slate); font-size: 17px; line-height: 1.55; }
+  strong, b { color: var(--ink); }
+  .rule { width: 62px; height: 4px; background: var(--brand); border-radius: 3px; }
+  code {
+    background: var(--panel); border: 1px solid var(--border); color: var(--brand-deep);
+    padding: 1px 5px; border-radius: 5px;
+    font-family: "SF Mono", Consolas, ui-monospace, monospace; font-size: 12.5px;
+  }
+
+  /* ── TITLE / SECTION-DIVIDER SLIDE ──────────────────────────── */
+  .slide.title {
+    background: var(--title-grad); color: #fff;
+    justify-content: center; padding: 56px 60px;
+  }
+  .slide.title .slide-body { gap: 0; }
+  /* align-self keeps the lockup at its natural aspect ratio; in a stretch flex
+     column an SVG with width:auto would stretch to the full slide width. */
+  .slide.title .title-logo { height: 34px; width: auto; align-self: flex-start; margin-bottom: 34px; }
+  .slide.title .eyebrow { color: var(--brand); }
+  .slide.title h1 { color: #fff; max-width: 20ch; margin-top: 12px; }
+  .slide.title .sub { color: rgba(255,255,255,.82); font-size: 17px; max-width: 62ch; }
+  .slide.title .rule { margin: 22px 0; }
+  .slide.title .title-meta {
+    margin-top: 30px; color: rgba(255,255,255,.7); font-size: 13px; letter-spacing: .02em;
+  }
+
+  /* ── SLIDE HEADER (numbered section head) ───────────────────── */
+  .slide-header { display: flex; align-items: center; gap: 14px; }
+  .sh-num {
+    width: 38px; height: 38px; border-radius: 9px; background: var(--primary); color: #fff;
+    font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sh-title { font-size: 24px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); }
+  .sh-sub   { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .sh-pg {
+    margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); opacity: .7;
+  }
+
+  /* ── SLIDE FOOTER (brand chrome on every content slide) ─────── */
+  .slide-footer {
+    position: absolute; left: 52px; right: 52px; bottom: 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 12px;
+  }
+  .slide-footer::before {              /* the Solventum lockup — never a text substitute */
+    content: ""; display: block; width: 108px; height: 20px; flex-shrink: 0;
+    background: var(--logo-dark) no-repeat left center / contain;
+  }
+  .slide-footer .fnote { text-align: right; }
+
+  /* ── CALLOUTS ───────────────────────────────────────────────── */
+  .callout {
+    border-left: 3px solid var(--brand-deep); background: var(--panel);
+    border-radius: 0 12px 12px 0; padding: 16px 20px;
+    font-size: 15px; line-height: 1.55; color: var(--slate);
+  }
+  .callout.positive { border-left-color: var(--green); background: #f0fdf4; }
+  .callout.warn     { border-left-color: var(--amber); background: #fffbeb; }
+  .callout.inverse {
+    background: var(--inverse-bg); color: var(--inverse-ink);
+    border-left: none; border-radius: 12px; padding: 18px 20px;
+  }
+  .callout.inverse b, .callout.inverse strong { color: var(--brand); }
+
+  /* ── CARD GRIDS ─────────────────────────────────────────────── */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cards.two  { grid-template-columns: repeat(2, 1fr); }
+  .cards.four { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 16px 18px;
+  }
+  .card h3 { margin-bottom: 8px; }
+  .card p  { font-size: 13px; }
+  .card.accent { border-top: 3px solid var(--c, var(--brand-deep)); }
+
+  /* ── TAGS (stage / status labels) ───────────────────────────── */
+  .tag {
+    font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 20px; display: inline-block; margin-bottom: 10px;
+  }
+  .tag.live   { background: #e6f9ee; color: var(--green); }
+  .tag.now    { background: #e6f9ee; color: var(--green); }
+  .tag.next   { background: #fef3e2; color: var(--amber); }
+  .tag.later  { background: #fdeaea; color: var(--red); }
+  .tag.vision { background: #eef2ff; color: var(--indigo); }
+  .tag.neutral{ background: var(--panel); color: var(--muted); border: 1px solid var(--border); }
+
+  /* ── TIER / HORIZON CARDS (set --c per card) ────────────────── */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tier-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-top: 3px solid var(--c, var(--brand-deep)); border-radius: 12px; padding: 18px 20px;
+  }
+  .tier-label {
+    font-size: 12px; font-weight: 800; letter-spacing: .04em; color: var(--c, var(--brand-deep));
+    margin-bottom: 8px;
+  }
+  .tier-card p { font-size: 14px; }
+  .tier-card p + p { margin-top: 9px; }
+
+  /* ── STEPS ──────────────────────────────────────────────────── */
+  .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+  .step-item {
+    background: var(--panel); border: 1px solid var(--border);
+    border-top: 3px solid var(--brand-deep); border-radius: 12px;
+    padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
+    font-weight: 800; font-size: 12.5px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .step-text { font-size: 13.5px; line-height: 1.5; color: var(--slate); }
+
+  /* ── SCENES / STORYBOARD ROWS ───────────────────────────────── */
+  .scenes { display: flex; flex-direction: column; gap: 9px; }
+  .scene {
+    display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start;
+    padding: 9px 0; border-bottom: 1px dashed var(--border);
+  }
+  .scene:last-child { border-bottom: none; }
+  .scene .n {
+    width: 34px; height: 34px; border-radius: 9px; background: var(--brand-deep); color: #fff;
+    font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  }
+  .scene .n.vision { background: var(--indigo); }
+  .scene .b .t { font-weight: 700; color: var(--ink); font-size: 14px; }
+  .scene .b .d { color: var(--muted); font-size: 12.5px; margin-top: 2px; line-height: 1.5; }
+  .scene .b .tag { font-size: 9.5px; margin: 0 0 0 8px; vertical-align: middle; }
+
+  /* ── LISTS + COLUMNS ────────────────────────────────────────── */
+  ul.clean { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  ul.clean li { position: relative; padding-left: 26px; }
+  ul.clean li::before {
+    content: ""; position: absolute; left: 4px; top: 8px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--brand-deep);
+  }
+  ul.clean.check li::before {
+    content: "\2713"; width: auto; height: auto; top: 0; left: 2px;
+    background: none; color: var(--green); font-weight: 800; font-size: 14px; border-radius: 0;
+  }
+  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
+  .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 28px; }
+  .col-label { font-weight: 700; color: var(--ink); margin-bottom: 8px; font-size: 15px; }
+
+  /* ── DATA TABLE ─────────────────────────────────────────────── */
+  .dtable { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .dtable th, .dtable td {
+    text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .dtable th {
+    background: var(--panel); font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+  }
+  .dtable tr:last-child td { border-bottom: none; }
+  .dtable td strong { color: var(--ink); }
+  .dtable .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Pills (rating / effort / risk inside tables) */
+  .pill {
+    font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; white-space: nowrap;
+    display: inline-block;
+  }
+  .pill.low  { background: #e6f9ee; color: var(--green); }
+  .pill.med  { background: #fef3e2; color: var(--amber); }
+  .pill.high { background: #fdeaea; color: var(--red); }
+  .pill.info { background: #eef2ff; color: var(--indigo); }
+
+  /* Status badges (delivery state) */
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; white-space: nowrap; border: 1px solid transparent;
+  }
+  .badge.shipped { background: #e6f9ee; color: var(--green);  border-color: #bbe9cd; }
+  .badge.build   { background: #fef3e2; color: var(--amber);  border-color: #f6ddb4; }
+  .badge.planned { background: #eef2ff; color: var(--indigo); border-color: #d3d8fb; }
+  .badge.gray    { background: var(--panel); color: var(--muted); border-color: var(--border); }
+
+  /* ── Q&A GRID ───────────────────────────────────────────────── */
+  .qa-grid { display: flex; flex-direction: column; gap: 10px; }
+  .qa-row {
+    display: grid; grid-template-columns: 240px 1fr; gap: 18px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--amber); border-radius: 0 12px 12px 0; padding: 13px 18px;
+    align-items: start;
+  }
+  .qa-q { font-size: 13.5px; font-weight: 800; color: #8a5200; line-height: 1.4; }
+  .qa-a { font-size: 13.5px; color: var(--slate); line-height: 1.55; }
+
+  /* ── BIG STATS ──────────────────────────────────────────────── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 16px; text-align: center;
+  }
+  .stat-num {
+    font-size: 32px; font-weight: 800; line-height: 1; color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+  .stat-note  { font-size: 10.5px; color: var(--muted); opacity: .8; margin-top: 6px; }
+
+  /* ── BAR COMPARISON ────────────────────────────────────────── */
+  .bars { display: flex; flex-direction: column; gap: 13px; }
+  .bar-row { display: flex; flex-direction: column; gap: 5px; }
+  .bar-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .bar-label { font-size: 12.5px; color: var(--muted); }
+  .bar-value { font-size: 20px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar-track { height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-fill  { height: 100%; background: rgba(107,122,117,.45); border-radius: 99px; }
+  .bar-row.hero {
+    background: #f0fdf4; border: 1px solid #bbe9cd; border-radius: 10px; padding: 12px 14px;
+  }
+  .bar-row.hero .bar-label { color: var(--ink); font-weight: 700; }
+  .bar-row.hero .bar-value { color: var(--brand-deep); font-size: 26px; }
+  .bar-row.hero .bar-fill  { background: var(--brand); }
+
+  /* ── ARCH / CODE DIAGRAM (always dark, for contrast) ────────── */
+  /* overflow MUST stay `visible`. Per CSS spec, when one overflow axis is set
+     to a non-visible value the other computes to `auto` — so `overflow-x:auto`
+     here silently creates a VERTICAL scrollbar too, and the diagram steals the
+     slide's scroll and shows only its first line or two. (Measured on the base
+     deck: an .arch-box squashed to 41px against 353px of content.) If a diagram
+     is too wide, shorten the ASCII or add `dense` to the slide — do not scroll. */
+  .arch-box {
+    background: var(--inverse-bg); border-radius: 12px; padding: 20px 24px;
+    font-family: "SF Mono", Consolas, ui-monospace, monospace;
+    font-size: 13px; line-height: 1.85; color: #b7d8c5; overflow: visible;
+  }
+  .arch-title {
+    font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--brand); margin-bottom: 12px;
+  }
+  .arch-box .hl  { color: var(--brand); font-weight: 700; }
+  .arch-box .hl2 { color: #7fe3ff; font-weight: 700; }
+  .arch-box .hl3 { color: #c3b6ff; font-weight: 700; }
+  .arch-box .dim { color: rgba(255,255,255,.35); }
+
+  /* ── MINI CARD (left accent bar) ───────────────────────────── */
+  .mini-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 13px 16px; border-left: 3px solid var(--c, var(--brand-deep));
+  }
+  .mini-title { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+  .mini-text  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+
+  /* ── ICONS (see assets/icons/ and references/icon-index.md) ──
+     Two families ship in this skill and they are NOT interchangeable:
+       .icon        line family  — 50 icons, viewBox 0 0 24 24, stroke:currentColor
+       .icon.solid  solid family — 276 icons, viewBox 0 0 64 64, fill:currentColor
+     Never mix the two inside one card grid; a filled icon reads much heavier
+     than a 1.6px outline and the grid looks like two decks spliced together.
+
+     Recolour on the icon element itself, NOT on a parent. .icon declares its
+     own `color`, and a declaration beats inheritance — so `color` on the card
+     has no effect. Use `color:inherit` here if you want container tinting. */
+  .icon {
+    width: 24px; height: 24px; display: inline-block; vertical-align: middle;
+    color: var(--brand-deep); flex-shrink: 0;
+  }
+  .icon svg { width: 100%; height: 100%; display: block; }
+  /* Solid family sits on a 64 grid, so it needs slightly more room to read. */
+  .icon.solid { width: 26px; height: 26px; }
+  /* Five icons are not square, and a square box distorts them. Constrain HEIGHT
+     and let width follow, for both orientations — sizing a landscape lockup by
+     width is what makes it illegible: `marketplace` is 226x64, so width:26px
+     renders it 26x7.36px (measured in the browser), a faint smudge that is
+     technically the right aspect ratio and useless on a slide. Height-driven
+     also keeps every icon in a row at the same optical size.
+       .wide  landscape — marketplace (226x64) -> ~92x26px
+       .tall  portrait  — warehouse_adaptive / _data / _gen2 / _snowpark -> ~22x26px */
+  .icon.wide, .icon.tall { width: auto; height: 26px; }
+  .icon.wide svg, .icon.tall svg { width: auto; height: 100%; }
+  .icon-chip {
+    width: 40px; height: 40px; border-radius: 11px; background: #e6f9ee;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  /* 45 icons (44 ra_* plus snowflake_trail) carry hardcoded fill:#fff interior
+     detail, which disappears on the pale chip above. Put those on .deep, which
+     is dark enough for the knockout to read as detail rather than a hole. */
+  .icon-chip.deep { background: var(--brand-deep); }
+  .icon-chip.deep .icon { color: #fff; }
+
+  /* ── LEGEND (keep in sync with what is rendered) ───────────── */
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--muted); }
+  .legend-swatch { width: 12px; height: 12px; border-radius: 3px; background: var(--c, var(--brand-deep)); }
+
+  /* ── HOVER TOOLTIP (pure CSS, no JS) ───────────────────────── */
+  .ipill { position: relative; cursor: help; border-bottom: 1px dotted var(--muted); }
+  .ipill .pop {
+    position: absolute; bottom: calc(100% + 10px); right: 0; width: 234px;
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    box-shadow: 0 14px 34px rgba(0,0,0,.18); padding: 10px 12px;
+    font-size: 11.5px; font-weight: 500; line-height: 1.5; color: var(--ink);
+    text-align: left; white-space: normal;
+    opacity: 0; visibility: hidden; transform: translateY(5px);
+    transition: opacity .16s ease, transform .16s ease; z-index: 60; pointer-events: none;
+  }
+  .ipill:hover .pop { opacity: 1; visibility: visible; transform: translateY(0); }
+  .ipill .pop.pleft { left: 0; right: auto; }
+  .ipill.link .pop { pointer-events: auto; }
+  .ipill.link .pop::before { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 14px; }
+  .ipill.link:hover .pop, .ipill.link .pop:hover { opacity: 1; visibility: visible; transform: translateY(0); }
+  .ipill .pop a {
+    display: block; margin-top: 9px; padding-top: 8px; border-top: 1px solid var(--border);
+    color: var(--brand-deep); font-weight: 800; text-decoration: none;
+  }
+
+  /* ── SOURCE NOTE (any slide carrying hard numbers) ─────────── */
+  .source-note { font-size: 10.5px; color: var(--muted); opacity: .85; line-height: 1.45; }
+
+  /* ── CHROME: progress, nav, PDF button, key hint ────────────── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px; background: var(--brand);
+    transition: width .35s ease; z-index: 60;
+  }
+  .nav {
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,.10); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.18); border-radius: 30px; padding: 8px 14px; z-index: 50;
+  }
+  .nav button {
+    background: var(--brand); color: #06301c; border: none; width: 32px; height: 32px;
+    border-radius: 50%; font-size: 15px; font-weight: 800; cursor: pointer;
+  }
+  .nav button:disabled { opacity: .35; cursor: default; }
+  .nav .count { color: #fff; font-size: 13px; font-weight: 600; min-width: 54px; text-align: center; }
+  #pdf-btn {
+    position: fixed; top: 14px; right: 18px; z-index: 55;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    padding: 8px 14px; border-radius: 18px; cursor: pointer; backdrop-filter: blur(8px);
+    font-family: inherit;
+  }
+  #pdf-btn:hover { background: rgba(255,255,255,.2); }
+  .key-hint {
+    position: fixed; bottom: 4px; left: 0; right: 0; text-align: center;
+    font-size: 10.5px; color: rgba(255,255,255,.45); letter-spacing: .08em; z-index: 49;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     PRINT / PDF — landscape, one slide per page.
+     Four lessons baked in:
+     1. @page lives OUTSIDE @media print, or the deck prints portrait and squished.
+     2. Slides are stacked static and forced visible (the deck is absolutely positioned on screen).
+     3. .slide-body must drop max-height/overflow — on paper overflow:auto CLIPS silently.
+     4. Hover tooltips must never bake into a static PDF.
+     ══════════════════════════════════════════════════════════════ */
+  @page { size: landscape; margin: 0; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { width: 100%; height: auto; overflow: visible !important; background: #fff !important; display: block; }
+    #progress-bar, .nav, #pdf-btn, .key-hint { display: none !important; }
+    .deck { width: 100%; height: auto; position: static; }
+    .slide {
+      position: relative !important; inset: auto; display: flex !important;
+      width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; overflow: hidden;
+      page-break-after: always; break-after: page; page-break-inside: avoid;
+      animation: none; padding: 38px 48px 54px;
+    }
+    .slide:last-child { page-break-after: avoid; break-after: auto; }
+    .slide-body { max-height: none !important; overflow: visible !important; }
+    .slide.dense .slide-body { gap: 9px; zoom: .94; }
+    .slide-footer { position: absolute; }
+    .pop { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button id="pdf-btn" title="Print / save as PDF (landscape)">PDF</button>
+
+<div class="deck" id="deck">
+
+  <!-- ══════════ SLIDE 1 — TITLE ══════════ -->
+  <section class="slide title active">
+    <div class="slide-body">
+      <!-- Official Solventum lockup, white wordmark. Pasted verbatim — never redraw it. -->
+      <svg class="title-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1106.5 276.9" xmlns:v="https://vecta.io/nano"><path d="M89.5 51.3c0-19.3-13.9-31.6-33.6-31.6S21.2 33.9 21.2 54.8s15 35.5 40.1 35.5h42.4c59.8 0 98.7 40.5 98.7 93.3 0 53.2-40.1 93.3-94.9 93.3-55.9 0-94.9-38.6-94.9-91.8 0-19.3 6.6-39.7 16.6-54.8H52c-11.6 15-17.7 33.9-17.7 53.2 0 42 30.5 73.3 73.3 73.3s73.3-31.2 73.3-73.3-30.5-73.3-77.1-73.3h-42C19.7 110.3 0 85.2 0 54.8 0 24.7 25.1 0 55.9 0c33.9 0 54.8 22.8 54.8 49.4 0 3.2-.4 7.5-1.4 10.4h-21c.7-2.3 1.2-6.2 1.2-8.5z" fill="#05dd4d"/><path d="M606.3 144c-1 0-1.6.8-1.6 1.8 1.2 18.6 14.4 32.8 32.6 32.8 14.8 0 23.8-6.2 28.4-16h14.8c-5.6 19.2-22.4 29.4-43.2 29.4-30 0-47.4-21.6-47.4-52.8 0-28.8 20-51.2 47.2-51.2 26.2 0 44.6 18.6 44.6 46 0 3 0 6.2-.4 10h-75zm229.4 31.6h12.4V189h-12.2c-23.4 0-31.2-10.2-31.2-29.4V106c0-1.4-.8-2-2.2-2h-14.6V90.6h14.6c1.4 0 2.2-.6 2.2-2V62h14.8v26.6c0 1.4.6 2 2 2h26.6V104h-26.6c-1.4 0-2 .6-2 2v55.2c0 11.8 2.4 14.4 16.2 14.4zm237.6-87.8c19.8 0 33.2 13.4 33.2 35.6V189h-15v-61.2c0-16.4-7.2-26.2-22.8-26.2-16 0-26 11.6-26 28.4v59h-14.8v-61.2c0-16.4-7.4-26.2-23-26.2-16 0-26 12.4-26 28.4v59h-14.8V90.6h14.2v13.6c0 1.6 1.6 1.8 2.4.6 8-13 17.2-17 29-17 12.4 0 23 6 29.4 18.8.6 1 2.2 1.2 2.8 0 7.2-13 17.8-18.8 31.4-18.8zM895.9 192c-20.2 0-33.8-14.2-33.8-36.4v-65h15v60.8c0 17.4 8.4 27.2 24.2 27.2 17.4 0 28.6-13.2 28.6-29.2V90.6h14.8V189h-14v-15.8c0-1.8-1.8-2.2-2.6-.8-8 14.8-18.6 19.6-32.2 19.6zM746.3 87.8c20.4 0 34 14 34 36.4V189h-15v-60.8c0-17.4-8.4-27.2-24.2-27.2-17.4 0-28.6 13.2-28.6 29.2V189h-15V90.6h14.2v16c0 1.6 1.8 1.8 2.4.6 8.2-14.8 18.8-19.4 32.2-19.4zm-141.2 42.4c0 1.4 1 1.8 2 1.8h57.2c1.4 0 2.2-.6 2.2-2.2-.4-16.8-12.8-28.6-29.4-28.6-16.8 0-29.8 12-32 29zm-62.8 40.4l30-80h15.2L549.3 189h-16.6l-38.2-98.4h15.6l30 80c.2.6.6.8 1 .8.6 0 1-.2 1.2-.8zM467.9 49v140h14.8V49h-14.8zm-64.4 143c-28.2 0-48-22-48.8-52.2s21.2-52 48.8-52c28.4 0 49 21.8 49 52s-21.2 52.2-49 52.2zm0-90.8c-19.8 0-34 15.4-34 38.6s14.2 38.6 34 38.6c20 0 34-15.4 34-38.6s-14-38.6-34-38.6zm-102.2-.6c-15.2 0-23.4 6.4-23.4 15.2 0 8 6.6 11.6 18 13.8l18.6 3.6c21 4 29.4 14.8 29.4 29.4 0 18-15 29.4-39.8 29.4-24 0-41.8-10-42.6-33.2h14.6c2 14.8 13.2 20.4 28.6 20.4 14.2 0 23.8-5.2 23.8-15.6 0-9.2-6.2-14.8-19-17l-18.6-3.2c-19-3.2-27.6-12.8-27.6-26.4 0-17.2 13.6-29.2 38-29.2 21 0 38 9.8 39.2 30.2h-14.4c-1.6-10-10.2-17.4-24.8-17.4z" fill="#fff"/></svg>
+      <div class="eyebrow">Cortex Code skill overview</div>
+      <h1>Every deck starts on-brand and ends gate-checked</h1>
+      <div class="rule"></div>
+      <div class="sub">What the <code>solventum-html-slides</code> skill gives you, how its workflow runs, and the rules that stop defects you cannot see by looking.</div>
+      <div class="title-meta">For colleagues building Solventum decks &middot; August 2026</div>
+    </div>
+  </section>
+
+
+  <section class="slide">
+    <div class="slide-body">
+      <div class="eyebrow">What ships</div>
+      <h2>A deck built with this skill is on-brand, self-contained and gate-checked by construction</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">326</div>
+          <div class="stat-label">Bundled icons</div>
+          <div class="stat-note">50 line + 276 solid, plus 4 partner marks</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">35</div>
+          <div class="stat-label">Automated gate controls</div>
+          <div class="stat-note">each one a defect that shipped once</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-label">File to hand over</div>
+          <div class="stat-note">no CDN, webfont or sidecar asset</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Network requests to render</div>
+          <div class="stat-note">opens offline, anywhere, forever</div>
+        </div>
+      </div>
+      <div class="callout">
+        The polish is the point and also the risk: a wrong number in a beautiful deck is worse
+        than no deck, because the design buys it trust it has not earned. So the skill treats
+        sourcing as a build rule, not a style note.
+      </div>
+      <div class="source-note">
+        Counts read from the skill directory at build time
+        (<code>assets/icons/</code>, <code>assets/partner/</code>); control count from
+        <code>scripts/test_gates.py</code>, measured 2026-08-12.
+      </div>
+    </div>
+    <div class="slide-footer"><span class="fnote">solventum-html-slides &middot; skill overview &middot; August 2026</span></div>
+  </section>
+  <section class="slide">
+    <div class="slide-body">
+      <div class="eyebrow">How it runs</div>
+      <h2>The workflow puts the argument before the HTML &mdash; and stops for agreement at the outline</h2>
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Establish the argument.</strong> Audience, the decision
+            they need to make, the one-sentence takeaway, and where the numbers came from.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Outline as headlines, then stop.</strong> Headline
+            sentences, not topic labels &mdash; and explicit agreement before any HTML exists.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Build from the shell.</strong> Copy
+            <code>assets/shell.html</code>, paste components from the gallery. Never write new CSS
+            &mdash; if you are adding a rule, the component already exists.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Verify twice.</strong> Run the gate for what a script can
+            read, then open it in a browser for what it cannot.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Hand over honestly.</strong> Report the path, the slide
+            count, and every figure you could not source.</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <b>Why step 2 is a hard stop:</b> restructuring an outline costs a minute. Restructuring
+        twelve slides of finished HTML costs an hour &mdash; and by then the reader has stopped reading.
+      </div>
+    </div>
+    <div class="slide-footer"><span class="fnote">solventum-html-slides &middot; skill overview &middot; August 2026</span></div>
+  </section>
+  <section class="slide dense">
+    <div class="slide-body">
+      <div class="eyebrow">Iconography</div>
+      <h2>326 icons ship in two families, and mixing them inside one grid is the defect you cannot see</h2>
+      <div class="two-col">
+        <div>
+          <div class="col-label">Line family &middot; 50 icons</div>
+          <ul class="clean">
+            <li>24-grid, <code>stroke:currentColor</code>, 1.6px, <code>fill:none</code>.</li>
+            <li>Light optical weight. Wrapper is <code>.icon</code>.</li>
+            <li>Neutral by design &mdash; no vendor or product marks.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Solid family &middot; 276 icons</div>
+          <ul class="clean">
+            <li>64-grid, <code>fill:currentColor</code> declared inside the file.</li>
+            <li>Noticeably heavier. Wrapper is <code>.icon solid</code>.</li>
+            <li>Includes verticals and architecture objects; some read as vendor artwork.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="mini-card" style="--c:var(--amber)">
+          <div class="mini-title">Size non-square icons by height</div>
+          <div class="mini-text">Five are not square. Sizing the widest by <em>width</em> rendered
+            it 26&times;7.36px &mdash; the correct aspect ratio, and an illegible smudge.
+            Height-driven gives 91.81&times;26.00px.</div>
+        </div>
+        <div class="mini-card" style="--c:var(--amber)">
+          <div class="mini-title">45 icons need a dark chip</div>
+          <div class="mini-text">Their interior detail is painted hard white rather than knocked
+            through, so it vanishes on a pale surface. Those go on
+            <code>.icon-chip deep</code>.</div>
+        </div>
+      </div>
+      <div class="source-note">
+        Pixel dimensions measured in-browser via <code>getBoundingClientRect()</code>, 2026-08-12.
+        Family counts and knockout count read from <code>assets/icons/</code> at build time.
+      </div>
+    </div>
+    <div class="slide-footer"><span class="fnote">solventum-html-slides &middot; skill overview &middot; August 2026</span></div>
+  </section>
+  <section class="slide">
+    <div class="slide-body">
+      <div class="eyebrow">Verification</div>
+      <h2>The gate catches what looking cannot &mdash; and is honest about what it cannot judge</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="icon-chip"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><polyline points="7 10 9.6 12.6 7 15.2"/><line x1="12.6" y1="15.2" x2="17" y2="15.2"/></svg></span></div>
+          <h3>Structure and portability</h3>
+          <p>Sandbox-safe storage and <code>print()</code>, navigation wiring, landscape print CSS,
+            and no external reference of any kind.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9.5C7.4 20.2 4 17 4 12V6z"/><polyline points="8.6 11.8 11.2 14.4 15.6 9.6"/></svg></span></div>
+          <h3>Brand and accuracy</h3>
+          <p>Official lockup present and not redrawn, no foreign brand in a brand slot, contrast
+            rule enforced, and no token used but never declared.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><polyline points="3 12.6 12 17.6 21 12.6"/></svg></span></div>
+          <h3>Icon hygiene</h3>
+          <p>Class collisions between inlined icons, duplicate referenced ids, and both icon
+            families appearing inside one grid.</p>
+        </div>
+      </div>
+      <div class="callout warn">
+        <b>What it cannot judge:</b> layout, the printed PDF, and navigation inside a sandboxed
+        iframe. The gate reads source text &mdash; it cannot measure a rendered box, so those stay
+        author checks in a real browser. A gate that claimed otherwise would be worse than none.
+      </div>
+    </div>
+    <div class="slide-footer"><span class="fnote">solventum-html-slides &middot; skill overview &middot; August 2026</span></div>
+  </section>
+  <section class="slide">
+    <div class="slide-body">
+      <div class="eyebrow">Getting started</div>
+      <h2>Copy the shell, run the gate, hand over one file</h2>
+      <ul class="clean check">
+        <li><code>assets/shell.html</code> is the starting point for every deck; the one-pager
+          shell is its portrait sibling.</li>
+        <li><code>references/components.md</code> has copy-paste markup for every component, and a
+          slide budget telling you when a slide is overloaded.</li>
+        <li><code>references/icon-index.md</code> starts with <em>Pick by concept</em>, so you map a
+          topic to an icon instead of scanning filenames.</li>
+      </ul>
+      <div class="callout inverse">
+        <b>To use it:</b> ask for a deck and name the audience, the decision and the length.
+        You will get an outline to approve before any HTML is written, then a single
+        gate-checked <code>.html</code> file you can email as-is.
+      </div>
+    </div>
+    <div class="slide-footer"><span class="fnote">solventum-html-slides &middot; skill overview &middot; August 2026</span></div>
+  </section>
+
+</div><!-- /deck -->
+
+<div class="nav">
+  <button id="prev-btn" disabled>&#8592;</button>
+  <span class="count" id="count">&mdash; / &mdash;</span>
+  <button id="next-btn">&#8594;</button>
+</div>
+<div class="key-hint">&#8592; &#8594; arrow keys</div>
+
+<script>
+  const slides  = Array.from(document.querySelectorAll('.slide'));
+  const total   = slides.length;
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const count   = document.getElementById('count');
+  const bar     = document.getElementById('progress-bar');
+  let current = 0;
+
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    // Start a freshly shown slide at the top; a previously scrolled body would otherwise persist.
+    slides[current].querySelector('.slide-body')?.scrollTo(0, 0);
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    count.textContent = (current + 1) + ' / ' + total;
+    bar.style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  function goTo(i) {
+    if (i < 0 || i >= total || i === current) return;   // guard prevents double-fire
+    current = i;
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   goTo(current - 1);
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End')  goTo(total - 1);
+  });
+
+  /* PDF export: reveal every slide so all pages print, then restore the deck.
+     window.print() THROWS in a sandboxed iframe without allow-modals (Slack and
+     Teams link previews, Notion embeds, GitHub's HTML preview,
+     st.components.v1.html). Unguarded, the throw skips the restore below and
+     every slide stays `active` — the reader is left staring at all N slides
+     stacked on top of each other and assumes the file is corrupt. Restoring in
+     `finally` means a failed print degrades to "PDF button does nothing",
+     which is recoverable, instead of destroying the deck. */
+  document.getElementById('pdf-btn').addEventListener('click', () => {
+    slides.forEach(s => s.classList.add('active'));
+    setTimeout(() => {
+      try {
+        window.print();
+      } catch (e) {
+        render();               // restore immediately; no dialog is coming
+        return;
+      }
+      // Print dialogs are modal, so this lands after the user dismisses it.
+      // render() reads `current`, so if the reader navigated in the meantime
+      // this still restores to the slide they are actually on.
+      setTimeout(render, 400);
+    }, 60);
+  });
+
+  render();
+</script>
+</body>
+</html>
